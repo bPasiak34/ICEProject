@@ -28,7 +28,7 @@ To run this backend locally, follow these steps:
    cd backend
    ```
 
-3. Build docker container, in the same directory where dockerfile is:
+3. Build docker container, in the same directory where docker-compose.yml is:
 
    ```bash
    docker-compose build
@@ -38,6 +38,4 @@ To run this backend locally, follow these steps:
 
 To start the development server, run container in the same directory where docker-compose.yml file is:
 
-    ```bash
-    docker-compose up
-    ```
+docker-compose up
