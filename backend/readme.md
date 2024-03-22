@@ -39,5 +39,5 @@ To run this backend locally, follow these steps:
 To start the development server, run the following command in the directory where the `docker-compose.yml` file is located:
 
 ```bash
-docker-compose build
+docker-compose up
 ```
