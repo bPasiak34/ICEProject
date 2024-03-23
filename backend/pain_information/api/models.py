@@ -1,6 +1,5 @@
 from django.db import models
-from django.core.validators import MaxValueValidator
-
+from .utils.generate_code import generate_code
 
 class PainInformation(models.Model):
     """Model used to store information about pain. It has a one-to-one relationship with the Diagnosis and AdditionalInfo models."""
@@ -14,8 +13,8 @@ class PainInformation(models.Model):
         # Add more pain types here
     ]
 
-    code = models.CharField(max_length=6, primary_key=True)
-    note = models.TextField()
+    code = models.CharField(max_length=6, primary_key=True, default=generate_code, editable=False)
+    note = models.TextField(blank=True)
     area = models.CharField(max_length=50)  # Probably using a ChoiceField later
     detailed_area_place = models.CharField(max_length=50)  # Not sure about this field
     type_of_pain = models.CharField(max_length=50, choices=PAIN_TYPES) 
@@ -36,18 +35,18 @@ class Diagnosis(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"Diagnosis for Pain Information (code: {self.code})"
+        return f"Diagnosis for Pain Information (code: {self.code.code})"
 
 
 class AdditionalInfo(models.Model):
     """Model used to store additional information about the pain of the patient (one-to-one relationship with PainInformation model)."""
     
     code = models.OneToOneField(PainInformation, on_delete=models.CASCADE)
-    height_cm = models.DecimalField(max_digits=3, decimal_places=2)
-    weight_kg = models.DecimalField(max_digits=3, decimal_places=2)
+    height_cm = models.DecimalField(max_digits=4, decimal_places=1)
+    weight_kg = models.DecimalField(max_digits=4, decimal_places=1)
     age = models.PositiveSmallIntegerField()
-    past_illnesses = models.TextField()
+    past_illnesses = models.TextField(blank=True)
     note = models.TextField(blank=True)
     
     def __str__(self):
-        return f"Additional Information for Pain Information (code: {self.code})"
+        return f"Additional Information for Pain Information (code: {self.code.code})"
