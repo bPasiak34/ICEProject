@@ -30,7 +30,7 @@ class PainInformation(models.Model):
 class Diagnosis(models.Model):
     """Model used to store the diagnosis of the pain (one-to-one relationship with PainInformation model)."""
     
-    code = models.OneToOneField(PainInformation, on_delete=models.CASCADE)
+    code = models.OneToOneField(PainInformation, primary_key=True, on_delete=models.CASCADE)
     diagnosis_note = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     
@@ -41,7 +41,7 @@ class Diagnosis(models.Model):
 class AdditionalInfo(models.Model):
     """Model used to store additional information about the pain of the patient (one-to-one relationship with PainInformation model)."""
     
-    code = models.OneToOneField(PainInformation, on_delete=models.CASCADE)
+    code = models.OneToOneField(PainInformation, primary_key=True, on_delete=models.CASCADE)
     height_cm = models.DecimalField(max_digits=4, decimal_places=1)
     weight_kg = models.DecimalField(max_digits=4, decimal_places=1)
     age = models.PositiveSmallIntegerField()
