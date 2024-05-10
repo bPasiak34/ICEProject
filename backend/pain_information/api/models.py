@@ -4,20 +4,12 @@ from .utils.generate_code import generate_code
 class PainInformation(models.Model):
     """Model used to store information about pain. It has a one-to-one relationship with the Diagnosis and AdditionalInfo models."""
 
-    PAIN_TYPES = [
-        ('pulsating', 'Ból pulsujący'),
-        ('dull', 'Ból tępy'),
-        ('sharp', 'Ból ostry'),
-        ('stabbing', 'Ból kłujący'),
-        ('burning', 'Ból palący'),
-        # Add more pain types here
-    ]
 
     code = models.CharField(max_length=6, primary_key=True, default=generate_code, editable=False)
     note = models.TextField(blank=True)
     area = models.CharField(max_length=50)  # Probably using a ChoiceField later
     detailed_area_place = models.CharField(max_length=50)  # Not sure about this field
-    type_of_pain = models.CharField(max_length=50, choices=PAIN_TYPES) 
+    type_of_pain = models.CharField(max_length=50)
     intensity_of_pain = models.PositiveIntegerField() # 0-10
     created_at = models.DateTimeField(auto_now_add=True) 
     has_additional_info = models.BooleanField(default=False) 
