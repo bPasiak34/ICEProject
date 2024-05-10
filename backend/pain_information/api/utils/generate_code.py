@@ -12,8 +12,10 @@ def generate_code(length: int = 6) -> str:
         str: A randomly generated code.
     """
     from api.models import PainInformation  
+    
+    strings = string.ascii_uppercase.replace('I', '',).replace('O', '') + string.digits + string.ascii_lowercase.replace('l', '')
 
-    code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+    code = ''.join(random.choices(strings, k=length))
     while PainInformation.objects.filter(code=code).exists():
-        code = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=length))
+        code = ''.join(random.choices(strings, k=length))
     return code
