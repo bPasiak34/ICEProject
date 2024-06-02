@@ -3,13 +3,19 @@ from .utils.generate_code import generate_code
 
 class PainInformation(models.Model):
     """Model used to store information about pain. It has a one-to-one relationship with the Diagnosis and AdditionalInfo models."""
-
+    TYPE_OF_PAIN_CHOICES = (
+        ('pulsating', 'Pulsating'),
+        ('sharp', 'Sharp'),
+        ('dull', 'Dull'),
+        ('throbbing', 'Throbbing'),
+    )
 
     code = models.CharField(max_length=6, primary_key=True, default=generate_code, editable=False)
     note = models.TextField(blank=True)
-    area = models.CharField(max_length=50)  # Probably using a ChoiceField later
-    detailed_area_place = models.CharField(max_length=50)  # Not sure about this field
-    type_of_pain = models.CharField(max_length=50)
+    pain_location_x = models.DecimalField(max_digits=4, decimal_places=1)
+    pain_location_y = models.DecimalField(max_digits=4, decimal_places=1)
+
+    type_of_pain = models.CharField(max_length=12, choices=TYPE_OF_PAIN_CHOICES)
     intensity_of_pain = models.PositiveIntegerField() # 0-10
     created_at = models.DateTimeField(auto_now_add=True) 
     has_additional_info = models.BooleanField(default=False) 
@@ -38,6 +44,7 @@ class AdditionalInfo(models.Model):
     weight_kg = models.DecimalField(max_digits=4, decimal_places=1)
     age = models.PositiveSmallIntegerField()
     past_illnesses = models.TextField(blank=True)
+    current_medications = models.TextField(blank=True)
     note = models.TextField(blank=True)
     
     def __str__(self):
