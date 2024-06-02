@@ -9,12 +9,18 @@ class PainInformation(models.Model):
         ('dull', 'Dull'),
         ('throbbing', 'Throbbing'),
     )
+    TYPE_OF_BODY_SIDE_CHOICES = (
+        ('front', 'Front'),
+        ('back', 'Back'),
+        ('leftSide', 'Left Side'),
+        ('rightSide', 'Right Side'),
+    )
 
     code = models.CharField(max_length=6, primary_key=True, default=generate_code, editable=False)
     note = models.TextField(blank=True)
-    pain_location_x = models.DecimalField(max_digits=4, decimal_places=1)
-    pain_location_y = models.DecimalField(max_digits=4, decimal_places=1)
-
+    pain_location_x = models.DecimalField(default=-500, max_digits=4, decimal_places=1)
+    pain_location_y = models.DecimalField(default=-500, max_digits=4, decimal_places=1)
+    body_side = models.CharField(max_length=10, blank=True, choices=TYPE_OF_BODY_SIDE_CHOICES)
     type_of_pain = models.CharField(max_length=12, choices=TYPE_OF_PAIN_CHOICES)
     intensity_of_pain = models.PositiveIntegerField() # 0-10
     created_at = models.DateTimeField(auto_now_add=True) 
